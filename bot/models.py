@@ -18,6 +18,7 @@ class Owe(models.Model):
     amount = models.IntegerFiaeld(default=0, max_length=20)
 
 
+
 class Shares(models.Model):
     payment_id = models.CharField(default=None, max_length=20)
     user_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
