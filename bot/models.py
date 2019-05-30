@@ -15,7 +15,7 @@ class Owe(models.Model):
     group_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     creditor_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     debtor_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
-    amount = models.IntegerField(default=0, max_length=20)
+    amount = models.IntegerFiaeld(default=0, max_length=20)
 
 
 class Shares(models.Model):
