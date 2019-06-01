@@ -1,10 +1,13 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-import telepot
+import telegram
+from bot import json_parser
+from bot.bot_main import handle_update
+import json
 
 
-# Create your views here.
 def hello(request):
-    bot = telepot.Bot("876650276:AAEWj4fDYthgU4MFPIKJT7H5WUxKnbep1mY")
-    bot.sendMessage(104342322, "hello from django")
-    return HttpResponse("hello")
+    bot = telegram.Bot("876650276:AAEWj4fDYthgU4MFPIKJT7H5WUxKnbep1mY")
+    update_json = json.loads(request.body)
+    update = json_parser.make_update_from_json(update_json)
+    handle_update(bot, update)
+    return HttpResponse("hello3")
