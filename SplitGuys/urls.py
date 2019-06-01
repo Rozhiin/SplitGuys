@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from bot.views import *
 from django.views.decorators.csrf import csrf_exempt
+from mtest.views import  test
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', csrf_exempt(hello))
+    path('hello/', csrf_exempt(hello)),
+    path('test/', test)
 ]
