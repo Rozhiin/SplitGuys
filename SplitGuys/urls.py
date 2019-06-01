@@ -23,5 +23,4 @@ from mtest.views import  test
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', csrf_exempt(hello)),
-    path('test/', test)
 ]
