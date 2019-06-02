@@ -4,7 +4,7 @@ from enum import Enum
 
 class CommandType(Enum):
     START = 0,
-    ADDCOST = 1,
+    ADDCOST = 1, # 0:waiting for value 1:value received waiting for share type
 
     def get_text(self):
         return '/' + self.name.lower()
