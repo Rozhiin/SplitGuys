@@ -22,3 +22,9 @@ class Shares(models.Model):
     payment_id = models.CharField(default=None, max_length=20)
     user_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     share = models.FloatField(default=0.0, max_length=5)
+
+
+class States(models.Model):
+    group_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
+    last_command = models.IntegerField(default=0)
+    command_state = models.IntegerField(default=0)
