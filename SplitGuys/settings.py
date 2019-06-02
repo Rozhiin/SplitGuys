@@ -25,7 +25,8 @@ SECRET_KEY = 's$o!v^c!p+q1t8i)9%k#h5nciw*r#65d(w0c8q1k90yd5d&qr='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cultum.serveo.net', '127.0.0.1', 'mire.serveo.net', 'promo.serveo.net']
+ALLOWED_HOSTS = ['cultum.serveo.net', '127.0.0.1', 'mire.serveo.net',
+                 'pala.serveo.net', 'lugeo.serveo.net']
 
 
 # Application definition
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mtest'
+    'bot'
 ]
 
 MIDDLEWARE = [

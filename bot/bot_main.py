@@ -1,5 +1,6 @@
 from telegram import Update, Bot, Message
 from enum import Enum
+from bot.models import States
 
 
 class CommandType(Enum):
@@ -23,9 +24,8 @@ def handle_group_message(bot, message):
     if message.text.startswith('/'):
         handle_group_command(bot, message)
     else:
-        bot.sendMessage(message.chat.id, "هزینه " + message.text + " برای کاربر با آی‌دی ِ" +
-                        message.from_user.username + " ثبت شد.")
-        # TODO: states must be saved in cache table
+        state = States.objects.get(group_id=message.chat.id)
+        bot.sendMessage(message.chat.id, state.command_state)
 
 
 def handle_group_command(bot, message):
@@ -38,3 +38,8 @@ def handle_group_command(bot, message):
         bot.sendMessage(message.chat.id, "you entered start command")
     elif command_type == CommandType.ADDCOST:
         bot.sendMessage(message.chat.id, "لطفا مقدار هزینه را وارد کنید")
+        state = States.objects.get(group_id=message.chat.id)
+        state.delete()
+        state = States(group_id=message.chat.id, last_command=command_type.value,
+                       command_state=0)
+        state.save()
