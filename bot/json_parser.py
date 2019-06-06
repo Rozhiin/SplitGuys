@@ -1,4 +1,4 @@
-from telegram import Update, Message, User, Chat
+from telegram import Update, Message, User, Chat, CallbackQuery
 
 
 def make_chat_from_json(chat_json):
@@ -21,10 +21,21 @@ def make_message_from_json(message_json):
     return message
 
 
+def make_callback_query_from_json(callback_json):
+    callback_query = CallbackQuery(callback_json['id'],
+                                   from_user=make_user_from_json(callback_json['from']),
+                                   message=make_message_from_json(callback_json['message']),
+                                   chat_instance=callback_json['chat_instance'],
+                                   data=callback_json['data'])
+    return callback_query
+
+
 def make_update_from_json(update_json):
     if not 'update_id' in update_json:
         return None
     update = Update(update_json['update_id'])
-    if 'message' in update_json:
+    if 'callback_query' in update_json:
+        update.callback_query = make_callback_query_from_json(update_json['callback_query'])
+    elif 'message' in update_json:
         update.message = make_message_from_json(update_json['message'])
     return update

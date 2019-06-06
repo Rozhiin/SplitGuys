@@ -26,7 +26,8 @@ SECRET_KEY = 's$o!v^c!p+q1t8i)9%k#h5nciw*r#65d(w0c8q1k90yd5d&qr='
 DEBUG = True
 
 ALLOWED_HOSTS = ['cultum.serveo.net', '127.0.0.1', 'mire.serveo.net',
-                 'pala.serveo.net', 'lugeo.serveo.net', 'apto.serveo.net']
+                 'pala.serveo.net', 'lugeo.serveo.net', 'apto.serveo.net',
+                 'eminus.serveo.net']
 
 
 # Application definition
