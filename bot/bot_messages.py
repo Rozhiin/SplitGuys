@@ -1,9 +1,18 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-
+from emoji import emojize
 
 def send_message_send_cost(bot, id):
     bot.sendMessage(id, "لطفا مقدار هزینه را وارد کنید")
 
+
+def send_message_private_chat(bot, id):
+    bot.sendMessage(id, "من با تو صحبتی ندارم.")
+
+def send_message_mydebt(bot, id, result):
+    if result>0:
+        bot.sendMessage(id, emojize("شما %d دلار بدهکار هستید :sunglasses:"%result, use_aliases=True))
+    else:
+        bot.sendMessage(id, emojize(" شما %d دلار طلبکار هستید :sunglasses: "%(-1 * result), use_aliases=True))
 
 def send_message_reply_without_state_error(bot, id):
     bot.sendMessage(id, "مگه من مسخره توام!")
@@ -30,7 +39,7 @@ def send_message_have_not_members(bot, id):
 
 
 def send_message_added_cost(bot, id):
-    bot.sendMessage(id, "باتشکر :rose:")
+    bot.sendMessage(id, emojize("باتشکر :rose: :rose:", use_aliases=True))
 
 
 def send_message_select_cost_kind(bot, id):

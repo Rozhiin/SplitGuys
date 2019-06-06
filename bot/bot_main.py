@@ -19,6 +19,8 @@ def handle_update(bot, update):
         handle_reply(bot, update.callback_query)
     elif update.message.chat.type == 'supergroup':
         handle_group_message(bot, update.message)
+    elif update.message.chat.type == 'private':
+        handle_private_message(bot, update.message)
 
 
 def handle_group_message(bot, message):
@@ -28,6 +30,22 @@ def handle_group_message(bot, message):
         handle_group_command(bot, message)
     else:
         handle_reply(bot, message)
+
+def handle_private_message(bot, message):
+    if message.text.startswith('/getmydebt'):
+        result = 0
+        costs = Cost.objects.filter(payer_id=message.from_user.id)
+        for cost in costs:
+            result -= cost.amount
+
+        shares = Share.objects.filter(user_id= message.from_user.id)
+        for share in shares:
+            result+= share.share
+
+        send_message_mydebt(bot, message.chat.id, result)
+
+    else:
+        send_message_private_chat(bot, message.chat.id)
 
 
 def handle_group_command(bot, message):
