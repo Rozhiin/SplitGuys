@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class Costs(models.Model):
+class Cost(models.Model):
     name = models.CharField(default=None, max_length=100)
     group_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     payer_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
@@ -18,13 +18,13 @@ class Owe(models.Model):
     amount = models.IntegerField(default=0)
 
 
-class Shares(models.Model):
+class Share(models.Model):
     payment_id = models.CharField(default=None, max_length=20)
     user_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     share = models.FloatField(default=0.0, max_length=5)
 
 
-class States(models.Model):
+class State(models.Model):
     group_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     user_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     last_command = models.IntegerField(default=0)
@@ -33,5 +33,6 @@ class States(models.Model):
 
 class Cache(models.Model):
     group_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
+    user_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     var_name = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
-    value = models.IntegerField(default=0)
+    value = models.FloatField(default=0)
