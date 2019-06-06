@@ -35,6 +35,7 @@ class Cache(models.Model):
     user_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     var_name = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     value = models.FloatField(default=0)
+    string_value = models.TextField(default="empty")
 
 
 class Member(models.Model):

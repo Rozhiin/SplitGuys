@@ -108,9 +108,22 @@ def handle_addcost_reply(bot, data, state):
         cache.save()
         state.command_state = 1
         state.save()
-        send_message_select_cost_kind(bot, message.chat.id)
-    #TODO: send name of cost
+        send_message_get_name(bot, message.chat.id)
     elif state.command_state == 1:
+        if not isinstance(data, Message):
+            send_message_not_a_message(bot, data.message.chat.id)
+        message = data
+        caches = Cache.objects.filter(group_id=message.chat.id, user_id=message.from_user.id,
+                                      var_name="cost_name")
+        for cache in caches:
+            cache.delete()
+        cache = Cache(group_id=message.chat.id, user_id=message.from_user.id,
+                      var_name="cost_name", string_value=message.text)
+        cache.save()
+        state.command_state=2
+        state.save()
+        send_message_select_cost_kind(bot, message.chat.id)
+    elif state.command_state == 2:
         if not isinstance(data, CallbackQuery):
             send_message_not_a_callback(bot, data.chat.id)
             return
