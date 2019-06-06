@@ -45,6 +45,7 @@ def handle_group_command(bot, message):
         state.save()
         send_message_send_cost(bot, message.chat.id)
 
+
 def handle_reply(bot, message):
     state = State.objects.get(group_id=message.chat.id, user_id=message.from_user.id)
     if state is None:
@@ -64,5 +65,3 @@ def handle_addcost_reply(bot, message, state):
         cache.save()
         state.command_state = 1
         state.save()
-        
-
