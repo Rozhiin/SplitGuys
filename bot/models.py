@@ -40,3 +40,6 @@ class Cache(models.Model):
 class Member(models.Model):
     group_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
     user_id = models.CharField(default=None, max_length=100)  # TODO: 1.check max_length 2.set default
+
+    class Meta:
+        unique_together = ('group_id', 'user_id',)

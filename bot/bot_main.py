@@ -5,7 +5,7 @@ from bot.bot_messages import *
 
 
 class CommandType(Enum):
-    START = 0,
+    REGISTER = 0,
     ADDCOST = 1,  # 0:waiting for value 1:value received waiting for share type
 
     def get_text(self):
@@ -49,13 +49,19 @@ def handle_private_message(bot, message):
 
 
 def handle_group_command(bot, message):
-    command_type = CommandType.START
+    command_type = CommandType.REGISTER
     for type in CommandType:
         if message.text.startswith(type.get_text()):
             command_type = type
             break
-    if command_type == CommandType.START:
-        bot.sendMessage(message.chat.id, "you entered start command")
+    if command_type == CommandType.REGISTER:
+        member = Member(group_id=message.chat.id, user_id=message.from_user.id)
+        try:
+            member.save()
+            send_message_user_registered(bot, message.chat.id)
+        except:
+            send_message_already_registered(bot, message.chat.id)
+            return
     elif command_type == CommandType.ADDCOST:
         last_states = State.objects.filter(group_id=message.chat.id, user_id=message.from_user.id)
         for state in last_states:

@@ -5,6 +5,9 @@ def send_message_send_cost(bot, id):
     bot.sendMessage(id, "لطفا مقدار هزینه را وارد کنید")
 
 
+def send_message_already_registered(bot, id):
+    bot.sendMessage(id, emojize("you have already registered sir! :man_in_tuxedo: :kiss:", use_aliases=True))
+
 def send_message_private_chat(bot, id):
     bot.sendMessage(id, "من با تو صحبتی ندارم.")
 
@@ -13,6 +16,9 @@ def send_message_mydebt(bot, id, result):
         bot.sendMessage(id, emojize("شما %d دلار بدهکار هستید :sunglasses:"%result, use_aliases=True))
     else:
         bot.sendMessage(id, emojize(" شما %d دلار طلبکار هستید :sunglasses: "%(-1 * result), use_aliases=True))
+
+def send_message_user_registered(bot, id):
+    bot.sendMessage(id, emojize("ای بابا تو رو کی راه داده؟! :man_facepalming:", use_aliases=True))
 
 def send_message_reply_without_state_error(bot, id):
     bot.sendMessage(id, "مگه من مسخره توام!")
