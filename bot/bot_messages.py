@@ -19,6 +19,13 @@ def send_message_have_not_selected_users(bot, id):
     bot.sendMessage(id, "دِ خب یکیو انتخاب کن!")
 
 
+def send_message_canceled(bot, id):
+    bot.sendMessage(id, "کنسله!")
+
+def send_message_remaining(bot, id, value):
+    bot.sendMessage(id, "مقدار " + str(value) + " باقیمانده برای خود شما ثبت شد.")
+
+
 def send_message_send_every_user_share(bot, id):
     bot.sendMessage(id, "هر کدوم چقد پول دادن؟")
 

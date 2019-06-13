@@ -6,6 +6,7 @@ from bot.bot_functions import *
 class CommandType(Enum):
     REGISTER = 0,
     ADDCOST = 1,
+    CANCEL = 2
 
     def get_text(self):
         return '/' + self.name.lower()
@@ -63,6 +64,8 @@ def handle_group_command(bot, message):
                       last_command=CommandType.ADDCOST.value[0], command_state=0)
         state.save()
         send_message_send_cost(bot, message.chat.id)
+    elif command_type == CommandType.CANCEL:
+        send_message_canceled(bot, message.chat.id)
 
 
 def handle_reply(bot, data):

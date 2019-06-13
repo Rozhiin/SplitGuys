@@ -10,6 +10,7 @@ from bot.bot_functions import *
 # 1: waiting for cost name
 # 2: waiting for cost division type
 # 3: division type 1 - waiting for users list
+# 4: division type 2 - watiing for user share
 
 
 def handle_addcost_reply(bot, data, state):  # data is message or callback_query object
@@ -220,6 +221,7 @@ def handle_state_2_callback_2(bot, callback, state):
                            user_id=callback.from_user.id,
                            var_name="custom_" + str(callback.from_user.id), value=cost_value)
         user_cache.save()
+        send_message_remaining(bot, callback.message.chat.id, cost_value)
         handle_state_4_ended(bot, callback, state)
 
 
@@ -273,6 +275,7 @@ def handle_state_4(bot, data, state):
                            user_id=message.from_user.id,
                            var_name="custom_" + str(message.from_user.id), value=cost_value - custom_sum_cache.value)
         user_cache.save()
+        send_message_remaining(bot, message.chat.id, cost_value - custom_sum_cache.value)
         handle_state_4_ended(bot, message, state)
 
 
