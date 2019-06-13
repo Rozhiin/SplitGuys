@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['cultum.serveo.net', '127.0.0.1', 'mire.serveo.net',
                  'pala.serveo.net', 'lugeo.serveo.net', 'apto.serveo.net',
-                 'eminus.serveo.net']
+                 'eminus.serveo.net', 'trado.serveo.net']
 
 
 # Application definition

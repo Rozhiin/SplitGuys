@@ -1,9 +1,11 @@
 from bot.bot_commands.bot_addcost import *
 from bot.bot_commands.bot_register import *
+from bot.bot_functions import *
+
 
 class CommandType(Enum):
     REGISTER = 0,
-    ADDCOST = 1,  # 0:waiting for value 1:value received waiting for share type
+    ADDCOST = 1,
 
     def get_text(self):
         return '/' + self.name.lower()
@@ -48,16 +50,15 @@ def handle_private_message(bot, message):
 
 def handle_group_command(bot, message):
     command_type = CommandType.REGISTER
+
     for type in CommandType:
         if message.text.startswith(type.get_text()):
             command_type = type
             break
+    delete_states_and_caches(group_id=message.chat.id, user_id=message.from_user.id)
     if command_type == CommandType.REGISTER:
         bot_register(bot, message)
     elif command_type == CommandType.ADDCOST:
-        last_states = State.objects.filter(group_id=message.chat.id, user_id=message.from_user.id)
-        for state in last_states:
-            state.delete()
         state = State(group_id=message.chat.id, user_id=message.from_user.id,
                       last_command=CommandType.ADDCOST.value[0], command_state=0)
         state.save()
@@ -75,7 +76,7 @@ def handle_reply(bot, data):
         user_id = data.from_user.id
     try:
         state = State.objects.get(group_id=chat_id, user_id=user_id)
-    except:
+    except State.DoesNotExist:
         send_message_reply_without_state_error(bot, chat_id)
         return
     if state.last_command == CommandType.ADDCOST.value[0]:
