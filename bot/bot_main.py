@@ -1,12 +1,14 @@
 from bot.bot_commands.bot_addcost import *
 from bot.bot_commands.bot_register import *
+from bot.bot_commands.bot_getalldebts import *
 from bot.bot_functions import *
 
 
 class CommandType(Enum):
     REGISTER = 0,
     ADDCOST = 1,
-    CANCEL = 2
+    CANCEL = 2,
+    GETALLDEBTS = 3
 
     def get_text(self):
         return '/' + self.name.lower()
@@ -66,6 +68,9 @@ def handle_group_command(bot, message):
         send_message_send_cost(bot, message.chat.id)
     elif command_type == CommandType.CANCEL:
         send_message_canceled(bot, message.chat.id)
+
+    elif command_type == CommandType.GETALLDEBTS:
+        bot_getalldebts(bot, message)
 
 
 def handle_reply(bot, data):

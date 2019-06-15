@@ -22,6 +22,7 @@ def send_message_have_not_selected_users(bot, id):
 def send_message_canceled(bot, id):
     bot.sendMessage(id, "کنسله!")
 
+
 def send_message_remaining(bot, id, value):
     bot.sendMessage(id, "مقدار " + str(value) + " باقیمانده برای خود شما ثبت شد.")
 
@@ -55,6 +56,9 @@ def send_message_share_exceeded(bot, id):
 
 def send_message_reply_without_state_error(bot, id):
     bot.sendMessage(id, "مگه من مسخره توام!")
+
+
+Bot,
 
 
 def send_message_not_a_number_error(bot, id):
@@ -112,3 +116,11 @@ def send_message_select_users(bot, id, users, selecteds, message_id=None):
             bot.edit_message_reply_markup(id, message_id, reply_markup=reply_markup)
         except telegram.error.BadRequest:
             return
+
+
+def send_message_getalldebts(bot, id, payement):
+    res = ''
+    for pay in payement:
+        res += str(pay[2]) + " :  " + pay[0] + ' --> ' + pay[1] + '\n'
+
+    bot.sendMessage(id, res)

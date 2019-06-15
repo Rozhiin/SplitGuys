@@ -6,8 +6,11 @@ import json
 
 
 def hello(request):
-    bot = telegram.Bot("876650276:AAEWj4fDYthgU4MFPIKJT7H5WUxKnbep1mY")
-    update_json = json.loads(request.body)
-    update = json_parser.make_update_from_json(update_json)
-    handle_update(bot, update)
+    try:
+        bot = telegram.Bot("876650276:AAEWj4fDYthgU4MFPIKJT7H5WUxKnbep1mY")
+        update_json = json.loads(request.body)
+        update = json_parser.make_update_from_json(update_json)
+        handle_update(bot, update)
+    except telegram.error.BadRequest:
+        print("ERROR")
     return HttpResponse("hello3")
