@@ -1,3 +1,5 @@
+import telegram
+
 from bot.models import Cache, State
 
 
@@ -11,8 +13,12 @@ def delete_states_and_caches(group_id, user_id):
 
 
 def get_users_from_members(bot, members):
-    users = []
-    for member in members:
-        cm = bot.get_chat_member(chat_id=member.group_id, user_id=member.user_id)
-        users.append(cm.user)
-    return users
+    try:
+        users = []
+        for member in members:
+            cm = bot.get_chat_member(chat_id=member.group_id, user_id=member.user_id)
+            users.append(cm.user)
+        return users
+    except telegram.error.BadRequest:
+        print("error: telegram bad request")
+        return []

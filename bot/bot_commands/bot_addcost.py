@@ -279,7 +279,7 @@ def handle_state_4(bot, data, state):
         handle_state_4_ended(bot, message, state)
 
 
-# TODO: ends have been repeated. can be a function
+# : ends have been repeated. can be a function
 def handle_state_4_ended(bot, data, state):
     if isinstance(data, Message):
         group_id = data.chat.id

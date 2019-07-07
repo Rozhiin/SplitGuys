@@ -13,11 +13,15 @@ def make_user_from_json(user_json):
 
 
 def make_message_from_json(message_json):
-    message = Message(message_json['message_id'],
+    message = None
+    try:
+        message = Message(message_json['message_id'],
                       from_user=make_user_from_json(message_json['from']),
                       date=message_json['date'],
                       chat=make_chat_from_json(message_json['chat']),
                       text=message_json['text'])
+    except:
+        print(message_json)
     return message
 
 
