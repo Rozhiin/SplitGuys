@@ -11,6 +11,6 @@ def hello(request):
         update_json = json.loads(request.body)
         update = json_parser.make_update_from_json(update_json)
         handle_update(bot, update)
-    except telegram.error.BadRequest:
-        print("ERROR")
+    except telegram.error.BadRequest as e:
+        print(e)
     return HttpResponse("hello3")

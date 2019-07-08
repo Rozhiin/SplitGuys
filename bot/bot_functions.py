@@ -2,6 +2,17 @@ import telegram
 
 from bot.models import Cache, State
 
+from enum import Enum
+
+
+class MarketType(Enum):
+    RESTAURANT = 0,
+    CAFE = 1,
+    CINEMA = 2,
+
+
+market_type_names = ["رستوران", "کافه", "سینما"]
+
 
 def delete_states_and_caches(group_id, user_id):
     caches = Cache.objects.filter(group_id=group_id, user_id=user_id)

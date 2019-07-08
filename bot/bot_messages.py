@@ -1,6 +1,7 @@
 import telegram
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot, Message
 from emoji import emojize
+from bot.bot_functions import MarketType, market_type_names
 
 
 def send_message_send_cost(bot, id):
@@ -8,6 +9,10 @@ def send_message_send_cost(bot, id):
         bot.sendMessage(id, "لطفا مقدار هزینه را وارد کنید")
     except telegram.error.BadRequest:
         print("error: telegram bad request")
+
+
+def send_message_command_not_found(bot, id):
+    bot.sendMessage(id, "هنو این کامندو اضافه نکردیم!")
 
 
 def send_message_already_registered(bot, id):
@@ -36,7 +41,6 @@ def send_message_canceled(bot, id):
         bot.sendMessage(id, "کنسله!")
     except telegram.error.BadRequest:
         print("error: telegram bad request")
-
 
 
 def send_message_remaining(bot, id, value):
@@ -139,6 +143,7 @@ def send_message_added_cost(bot, id):
     except telegram.error.BadRequest:
         print("error: telegram bad request")
 
+
 def send_message_select_cost_kind(bot, id):
     try:
         button_list = [
@@ -181,3 +186,30 @@ def send_message_getalldebts(bot, id, payement):
         res += str(pay[2]) + " :  " + pay[0] + ' --> ' + pay[1] + '\n'
 
     bot.sendMessage(id, res)
+
+
+def send_message_select_type(bot, id):
+    button_list = []
+    for type in MarketType:
+        try:
+            button_text = market_type_names[type.value[0]]
+            button_list.append(
+                InlineKeyboardButton(emojize(button_text, use_aliases=True), callback_data=str(type.value[0])))
+        except Exception as e:
+            print(e)
+    n_cols = 1
+    menu = [button_list[i:i + n_cols] for i in range(0, len(button_list), n_cols)]
+    reply_markup = InlineKeyboardMarkup(menu)
+    bot.sendMessage(id, "چی داری؟", reply_markup=reply_markup)
+
+
+def send_message_send_name(bot, id):
+    bot.sendMessage(id, "اسمت چیه عمو؟")
+
+
+def send_message_send_desc(bot, id):
+    bot.sendMessage(id, "توضیح بده!")
+
+
+def send_message_market_saved(bot, id):
+    bot.sendMessage(id, "محل به بات افزوده شد.")

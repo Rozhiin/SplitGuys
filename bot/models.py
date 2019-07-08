@@ -44,3 +44,9 @@ class Member(models.Model):
 
     class Meta:
         unique_together = ('group_id', 'user_id',)
+
+
+class Market(models.Model):
+    type = models.IntegerField(default=0)
+    name = models.CharField(default=None, max_length=100)
+    desc = models.CharField(default=None, max_length=100)
