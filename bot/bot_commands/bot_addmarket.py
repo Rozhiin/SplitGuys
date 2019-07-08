@@ -61,7 +61,7 @@ def addmarket_state_2(bot: Bot, data, state):
         send_message_cache_not_found(bot, message)
     if name_cache is None or type_cache is None:
         send_message_cache_not_found(bot, message)
-    market = Market(type=type_cache.value, name=name_cache.string_value,
+    market = Market(type=type_cache.string_value, name=name_cache.string_value,
                     desc=message.text)
     market.save()
     send_message_market_saved(bot, message.chat.id)
