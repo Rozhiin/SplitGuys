@@ -3,13 +3,15 @@ from bot.bot_commands.bot_register import *
 from bot.bot_commands.bot_getalldebts import *
 from bot.bot_functions import *
 from bot.bot_commands.bot_addmarket import *
+from bot.bot_commands.bot_showmarkets import *
 
 
 class CommandType(Enum):
     REGISTER = 0,
     ADDCOST = 1,
     CANCEL = 2,
-    GETALLDEBTS = 3
+    GETALLDEBTS = 3,
+    SHOWMARKETS = 6,
 
     def get_text(self):
         return '/' + self.name.lower()
@@ -62,7 +64,7 @@ def handle_group_command(bot, message):
             break
     delete_states_and_caches(group_id=message.chat.id, user_id=message.from_user.id)
     if command_type == CommandType.REGISTER:
-        bot_register(bot, message)
+        bot_register(bot, message, command_type)
     elif command_type == CommandType.ADDCOST:
         state = State(group_id=message.chat.id, user_id=message.from_user.id,
                       last_command=CommandType.ADDCOST.value[0], command_state=0)
@@ -73,6 +75,9 @@ def handle_group_command(bot, message):
 
     elif command_type == CommandType.GETALLDEBTS:
         bot_getalldebts(bot, message)
+
+    elif command_type == CommandType.SHOWMARKETS:
+        showmarkets_handle_command(bot, message, command_type)
 
 
 def handle_reply(bot, data):
@@ -91,6 +96,10 @@ def handle_reply(bot, data):
         return
     if state.last_command == CommandType.ADDCOST.value[0]:
         handle_addcost_reply(bot, data, state)
+    elif state.last_command == CommandType.SHOWMARKETS.value[0]:
+        handle_showmarket_reply(bot, data, state)
+    elif state.last_command == CommandType.REGISTER.value[0]:
+        handle_register_reply(bot, data, state)
 
 
 def handle_private_command(bot, message):

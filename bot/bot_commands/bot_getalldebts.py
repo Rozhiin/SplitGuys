@@ -51,7 +51,7 @@ def make_payement_with_username(payemet, message, bot_):
         member1 = Member.objects.get(group_id=message.chat.id, user_id=pay[0])
         member2 = Member.objects.get(group_id=message.chat.id, user_id=pay[1])
         users = get_users_from_members(bot_, [member1, member2])
-        res += [[users[0].username, users[1].username, pay[2]]]
+        res += [[users[0].username, users[1].username, pay[2], member2.card_number]]
 
     return res
 

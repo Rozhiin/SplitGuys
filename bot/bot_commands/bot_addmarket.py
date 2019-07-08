@@ -10,7 +10,6 @@ def addmarket_handle_command(bot: Bot, message, pvcommand):
                   last_command=pvcommand.value, command_state=0)
     state.save()
     send_message_select_type(bot, message.chat.id)
-    pass
 
 
 def addmarket_handle_message(bot: Bot, data, state):

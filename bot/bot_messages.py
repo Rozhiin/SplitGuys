@@ -183,12 +183,13 @@ def send_message_select_users(bot, id, users, selecteds, message_id=None):
 def send_message_getalldebts(bot, id, payement):
     res = ''
     for pay in payement:
-        res += str(pay[2]) + " :  " + pay[0] + ' --> ' + pay[1] + '\n'
+        res += str(pay[2]) + " :  " + pay[0] + ' --> ' + pay[1] + '\n' + \
+                "شماره کارت: " + pay[3] + '\n'
 
     bot.sendMessage(id, res)
 
 
-def send_message_select_type(bot, id):
+def send_message_select_type(bot, id, is_for_customers=False):
     button_list = []
     for type in MarketType:
         try:
@@ -200,7 +201,10 @@ def send_message_select_type(bot, id):
     n_cols = 1
     menu = [button_list[i:i + n_cols] for i in range(0, len(button_list), n_cols)]
     reply_markup = InlineKeyboardMarkup(menu)
-    bot.sendMessage(id, "چی داری؟", reply_markup=reply_markup)
+    message = "نوع محل تفریحیِ خود را انتخاب کنید"
+    if is_for_customers:
+        message = "دنبال کدام نوع محل میگردید؟"
+    bot.sendMessage(id, message, reply_markup=reply_markup)
 
 
 def send_message_send_name(bot, id):
@@ -213,3 +217,34 @@ def send_message_send_desc(bot, id):
 
 def send_message_market_saved(bot, id):
     bot.sendMessage(id, "محل به بات افزوده شد.")
+
+
+def send_message_market(bot, id, market):
+    result = market.name
+    result += "\n\n"
+    result += market.desc
+    bot.sendMessage(id, result)
+
+
+def send_message_markets(bot, id, markets):
+    for i in range(len(markets)):
+        market = markets[i]
+        bot.sendMessage(id, "محل شماره %d" % (i + 1))
+        send_message_market(bot, id, market)
+    bot.sendMessage(id, emojize(":heart: :heart:", use_aliases=True))
+
+
+def send_message_send_card_number(bot, id):
+    bot.sendMessage(id, "شماره کارت خود را وارد کنید.\nشماره کارت باید ۱۶ رقمی باشد و بدون فاصله وارد شود")
+
+
+def send_message_card_number_not_digit(bot, id):
+    bot.sendMessage(id, "شماره کارت فقط باید از ارقام تشکیل شده باشد")
+
+
+def send_message_card_number_low(bot, id):
+    bot.sendMessage(id, "طول شماره کارت کمتر از ۱۶ رقم وارد شده")
+
+
+def send_message_card_number_high(bot, id):
+    bot.sendMessage(id, "طول شماره کارت بیشتر از ۱۶ رقم وارد شده")
