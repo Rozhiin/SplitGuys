@@ -56,14 +56,16 @@ def handle_private_message(bot, message):
 
 
 def handle_group_command(bot, message):
-    command_type = CommandType.REGISTER
+    command_type = None
 
     for type in CommandType:
         if message.text.startswith(type.get_text()):
             command_type = type
             break
     delete_states_and_caches(group_id=message.chat.id, user_id=message.from_user.id)
-    if command_type == CommandType.REGISTER:
+    if command_type is None:
+        send_message_command_not_found(bot, message.chat.id)
+    elif command_type == CommandType.REGISTER:
         bot_register(bot, message, command_type)
     elif command_type == CommandType.ADDCOST:
         state = State(group_id=message.chat.id, user_id=message.from_user.id,
